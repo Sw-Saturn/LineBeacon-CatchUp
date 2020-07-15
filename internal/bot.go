@@ -10,7 +10,7 @@ import (
 func StartBot() {
 	bot := initBot()
 	SetCallbackHandler(bot)
-	err := http.ListenAndServe(":" + os.Getenv("PORT"), nil)
+	err := http.ListenAndServe(":8080", nil)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -35,8 +35,10 @@ func SetCallbackHandler(client *linebot.Client) {
 		if err != nil {
 			if err == linebot.ErrInvalidSignature {
 				writer.WriteHeader(http.StatusBadRequest)
+				log.Println(err)
 			} else {
 				writer.WriteHeader(http.StatusInternalServerError)
+				log.Println(err)
 			}
 			return
 		}
@@ -44,11 +46,24 @@ func SetCallbackHandler(client *linebot.Client) {
 		for _, event := range events {
 			switch event.Type {
 			case linebot.EventTypeBeacon:
-				message := linebot.NewTextMessage("Test")
-				_, err := client.ReplyMessage(event.ReplyToken, message).Do()
+				replyMessage := linebot.NewTextMessage(
+					"あああああああああああああああああああああああああああああああ!!!!!!!!!!!" +
+						"(ﾌﾞﾘﾌﾞﾘﾌﾞﾘﾌﾞﾘｭﾘｭﾘｭﾘｭﾘｭﾘｭ!!!!!!ﾌﾞﾂﾁﾁﾌﾞﾌﾞﾌﾞﾁﾁﾁﾁﾌﾞﾘﾘｲﾘﾌﾞﾌﾞﾌﾞﾌﾞｩｩｩｩｯｯｯ!!!!!!!)",
+					)
+				_, err := client.ReplyMessage(event.ReplyToken, replyMessage).Do()
 				if err != nil {
 					log.Println(err)
 					continue
+				}
+			case linebot.EventTypeMessage:
+				switch incomingMessage := event.Message.(type) {
+				case *linebot.TextMessage:
+					replyMessage := linebot.NewTextMessage(incomingMessage.Text)
+					_, err := client.ReplyMessage(event.ReplyToken, replyMessage).Do()
+					if err != nil {
+						log.Println(err)
+						continue
+					}
 				}
 			}
 		}
