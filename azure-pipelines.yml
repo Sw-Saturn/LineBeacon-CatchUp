@@ -1,0 +1,35 @@
+# Docker
+# Build a Docker image 
+# https://docs.microsoft.com/azure/devops/pipelines/languages/docker
+
+trigger:
+- master
+
+resources:
+- repo: self
+
+variables:
+- group: secret
+- name: imageName
+  value: 'ramen_bot:$(Build.BuildId)'
+
+stages:
+- stage: Build
+  displayName: Build image
+  jobs:  
+  - job: Build
+    displayName: Build
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: DownloadSecureFile@1
+      name: env
+      displayName: 'Download .env File'
+      inputs:
+        secureFile: '.env'
+    - script: |
+        cp $(env.secureFilePath) ./.env
+        docker-compose build
+        docker login -u swsaturn -p $(DOCKER_HUB_PWD)
+        docker-compose push
+      displayName: docker-compose build and push
