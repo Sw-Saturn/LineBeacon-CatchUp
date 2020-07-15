@@ -11,7 +11,7 @@ resources:
 variables:
 - group: secret
 - name: imageName
-  value: 'Secets:$(Build.BuildId)'
+  value: 'Secrets:$(Build.BuildId)'
 
 stages:
 - stage: Build
