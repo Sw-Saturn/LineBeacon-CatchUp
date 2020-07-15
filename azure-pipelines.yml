@@ -11,7 +11,7 @@ resources:
 variables:
 - group: secret
 - name: imageName
-  value: 'ramen_bot:$(Build.BuildId)'
+  value: 'linebot-catchup:$(Build.BuildId)'
 
 stages:
 - stage: Build
