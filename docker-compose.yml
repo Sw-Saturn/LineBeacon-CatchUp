@@ -1,0 +1,16 @@
+version: '3'
+services:
+  app:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    hostname: linebeacon-catchup
+    image: swsaturn/linebeacon-catchup
+    container_name: "linebeacon-catchup"
+    volumes:
+      - ./:/go/src/github.com/Sw-Saturn/linebeacon-catchup
+    tty: true
+    env_file:
+      - .env
+    ports:
+      - "8080:8080"
