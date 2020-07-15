@@ -12,7 +12,7 @@ jobs:
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
         env:
-          LINE_CHANNEL_SECRET: ${{ serets.LINE_CHANNEL_SECRET }}
+          LINE_CHANNEL_SECRET: ${{ secrets.LINE_CHANNEL_SECRET }}
           LINE_CHANNEL_TOKEN: ${{ secrets.LINE_CHANNEL_TOKEN }}
         with:
           username: ${{ github.actor }}
