@@ -9,12 +9,19 @@ import (
 
 func StartBot() {
 	bot := initBot()
-	CallbackHandler(bot)
+	SetCallbackHandler(bot)
+	err := http.ListenAndServe(":" + os.Getenv("PORT"), nil)
+	if err != nil {
+		log.Fatal(err)
+	}
 }
 
 func initBot() *linebot.Client{
 	loadEnv()
-	bot, err := linebot.New(os.Getenv("LINE_CHANNEL_SECRET"), os.Getenv("LINE_CHANNEL_TOKEN"))
+	bot, err := linebot.New(
+		os.Getenv("LINE_CHANNEL_SECRET"),
+		os.Getenv("LINE_CHANNEL_TOKEN"),
+		)
 	if err != nil {
 		log.Fatal("Error starting Line Bot")
 	}
@@ -22,7 +29,7 @@ func initBot() *linebot.Client{
 }
 
 
-func CallbackHandler(client *linebot.Client) {
+func SetCallbackHandler(client *linebot.Client) {
 	http.HandleFunc("/callback", func(writer http.ResponseWriter, request *http.Request) {
 		events, err := client.ParseRequest(request)
 		if err != nil {
