@@ -8,11 +8,6 @@ trigger:
 resources:
 - repo: self
 
-variables:
-- group: secret
-- name: imageName
-  value: 'Secrets:$(Build.BuildId)'
-
 stages:
 - stage: Build
   displayName: Build image
