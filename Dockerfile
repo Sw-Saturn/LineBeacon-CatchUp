@@ -17,4 +17,5 @@ COPY --from=build /usr/local/go/lib/time/zoneinfo.zip /usr/local/go/lib/time/zon
 ENV TZ=Asia/Tokyo
 COPY --from=build /build/app /build/app
 
+ENV PORT=8080
 ENTRYPOINT ["/build/app"]
