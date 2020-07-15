@@ -11,7 +11,7 @@ resources:
 variables:
 - group: secret
 - name: imageName
-  value: 'linebot-catchup:$(Build.BuildId)'
+  value: 'Secets:$(Build.BuildId)'
 
 stages:
 - stage: Build
