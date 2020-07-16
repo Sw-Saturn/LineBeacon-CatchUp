@@ -16,18 +16,16 @@ func StartBot() {
 	}
 }
 
-func initBot() *linebot.Client{
-	loadEnv()
+func initBot() *linebot.Client {
 	bot, err := linebot.New(
 		os.Getenv("LINE_CHANNEL_SECRET"),
 		os.Getenv("LINE_CHANNEL_TOKEN"),
-		)
+	)
 	if err != nil {
 		log.Fatal("Error starting Line Bot")
 	}
 	return bot
 }
-
 
 func SetCallbackHandler(client *linebot.Client) {
 	http.HandleFunc("/callback", func(writer http.ResponseWriter, request *http.Request) {
@@ -49,7 +47,7 @@ func SetCallbackHandler(client *linebot.Client) {
 				replyMessage := linebot.NewTextMessage(
 					"あああああああああああああああああああああああああああああああ!!!!!!!!!!!" +
 						"(ﾌﾞﾘﾌﾞﾘﾌﾞﾘﾌﾞﾘｭﾘｭﾘｭﾘｭﾘｭﾘｭ!!!!!!ﾌﾞﾂﾁﾁﾌﾞﾌﾞﾌﾞﾁﾁﾁﾁﾌﾞﾘﾘｲﾘﾌﾞﾌﾞﾌﾞﾌﾞｩｩｩｩｯｯｯ!!!!!!!)",
-					)
+				)
 				_, err := client.ReplyMessage(event.ReplyToken, replyMessage).Do()
 				if err != nil {
 					log.Println(err)
