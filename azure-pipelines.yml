@@ -28,6 +28,7 @@ stages:
     - script: |
         cp $(env.secureFilePath) ./.env
         docker-compose build
-        docker login -u swsaturn -p $(DOCKER_HUB_PWD)
+        echo "$(DOCKER_HUB_PWD)" | docker login -u swsaturn --password-stdin
         docker-compose push
       displayName: docker-compose build and push
+
