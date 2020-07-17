@@ -45,8 +45,7 @@ func SetCallbackHandler(client *linebot.Client) {
 			switch event.Type {
 			case linebot.EventTypeBeacon:
 				replyMessage := linebot.NewTextMessage(
-					"あああああああああああああああああああああああああああああああ!!!!!!!!!!!" +
-						"(ﾌﾞﾘﾌﾞﾘﾌﾞﾘﾌﾞﾘｭﾘｭﾘｭﾘｭﾘｭﾘｭ!!!!!!ﾌﾞﾂﾁﾁﾌﾞﾌﾞﾌﾞﾁﾁﾁﾁﾌﾞﾘﾘｲﾘﾌﾞﾌﾞﾌﾞﾌﾞｩｩｩｩｯｯｯ!!!!!!!)",
+					"Received beacon signal",
 				)
 				_, err := client.ReplyMessage(event.ReplyToken, replyMessage).Do()
 				if err != nil {
